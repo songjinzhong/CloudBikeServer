@@ -14,7 +14,7 @@ public class VRCamera : MonoBehaviour
     // camera resolution
     public int textureWidth = 1920;
 
-	public float dd = 0.5625f;
+	public float dd = 0.5626f;
 	public int textureHeight;
 
     public Camera _cameraLeft;
@@ -32,6 +32,9 @@ public class VRCamera : MonoBehaviour
     // scale the resolution of the camera, is needed for performance reasons. Rendering at 1080p is often too heavy, causing fps problems.
     public int imageScaleFactor = 1;
 	private GUIStyle bb=new GUIStyle();  
+
+	//横向滑动条数值  
+	private int horizontalValue = 1920;
 
     void Start()
     {
@@ -68,33 +71,34 @@ public class VRCamera : MonoBehaviour
         Destroy(gameObject);
         RenderTexture.active = null;
     }
-	private string txt = "1920";
+	//private string txt = "1920";
     void Update()
     {
-		if(txt != ""){
-			int i = int.Parse (txt);
-			if (i >= 500 && i<=3000 && i != textureWidth) {
-				textureWidth = i;
-				textureHeight = (int)(textureWidth * dd);
-				renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
-				texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
-
-				Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
-				// both cameras will render on this texture
-				_cameraLeft.targetTexture = renderTexture;
-				_cameraRight.targetTexture = renderTexture;
-				//renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
-			}
+		if (horizontalValue >= 500 && horizontalValue<=3000 && horizontalValue != textureWidth) {
+			textureWidth = horizontalValue ;
+			textureHeight = (int)(textureWidth * dd);
+			UpdateImages ();
 		}
-
         AdjustCameras();
 
     }
+	void UpdateImages(){
+		renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
+		texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
 
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+		// both cameras will render on this texture
+		_cameraLeft.targetTexture = renderTexture;
+		_cameraRight.targetTexture = renderTexture;
+		//renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
+	}
+		
 	void OnGUI()
 	{
-		txt = GUI.TextField(new Rect(0, 0, 120, 60),txt,bb);
+		//txt = GUI.TextField(new Rect(0, 0, 120, 60),txt,bb);
+		//计算滑动进度  
+		horizontalValue = (int)GUI.HorizontalSlider( new Rect (10, 10, 200, 20), horizontalValue, 500, 3000);  
 	}
 
     private void AdjustCameras()
