@@ -25,12 +25,17 @@ public class PlayerController : MonoBehaviour
 
 	public GameObject yuanshi;
 
+	private Vector3 v_y;
+
+	private Vector3 compare;
+
 	//public float y;
 
     private void Start()
     {
         m_CharacterController = GetComponent<CharacterController>();
 		//y = yuanshi.transform.rotation.y;
+		v_y = yuanshi.transform.rotation.eulerAngles;
     }
 
     /// <summary>
@@ -59,7 +64,10 @@ public class PlayerController : MonoBehaviour
     private void updateRotation()
     {
 		target.transform.rotation = targetInitialRotation * inputManager.Rotation;
-		//Debug.Log (target.transform.rotation);
+		compare = yuanshi.transform.rotation.eulerAngles;
+		target.transform.Rotate (compare - v_y);
+		Debug.Log (compare - v_y);
+		//Debug.Log (yuanshi.transform.rotation.eulerAngles);
 		//target.transform.rotation = target.transform.rotation + yuanshi.transform.rotation;
     }
 
