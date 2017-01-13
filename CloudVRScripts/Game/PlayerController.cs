@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 		target.transform.rotation = targetInitialRotation * inputManager.Rotation;
 		compare = yuanshi.transform.rotation.eulerAngles;
 		target.transform.Rotate (compare - v_y);
-		Debug.Log (compare - v_y);
+		//Debug.Log (compare - v_y);
 		//Debug.Log (yuanshi.transform.rotation.eulerAngles);
 		//target.transform.rotation = target.transform.rotation + yuanshi.transform.rotation;
     }

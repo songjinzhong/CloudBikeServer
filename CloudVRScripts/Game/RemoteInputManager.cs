@@ -40,10 +40,15 @@ public class RemoteInputManager
 
         while((input = clientConnection.readInput()) != null)
         {
-            if (input is GyroInput)
-                handleQuaternion((GyroInput) input);
-            else if (input is TouchInput)
-                handleTouchInput((TouchInput) input);
+			//Debug.Log(input);
+			if (input is GyroInput) {
+				//Debug.Log ("gyro");
+				handleQuaternion ((GyroInput)input);
+			}
+			else if (input is TouchInput){
+				Debug.Log("input");
+				handleTouchInput((TouchInput) input);
+			}
         }
     }
 
