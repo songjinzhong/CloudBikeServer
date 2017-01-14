@@ -11,6 +11,8 @@ class IOUtils
                 return readQuaternion(input);
             case 1:
                 return readTouch(input);
+            case 2:
+                return readControllerCommand(input);
             default:
                 throw new ArgumentException("unknown input type");
         }
@@ -58,6 +60,38 @@ class IOUtils
 
         GyroInput input = new GyroInput();
         input.Data = new float[] { -y, x, -z, w };
+        return input;
+    }
+
+    /// <summary>
+    /// Convert a byte array representing a controller command into a <see cref="ControllerInput"/>.
+    /// </summary>
+    private static ControllerInput readControllerCommand(byte[] commands){
+        ControllerInput input=new ControllerInput();
+
+        byte[] temp = new byte[4];
+
+        Array.Copy(commands, 1, temp, 0, 4);
+        float x = NetworkToHostOrderFloat(temp);
+
+        Array.Copy(commands, 5, temp, 0, 4);
+        float y = NetworkToHostOrderFloat(temp);
+
+        Array.Copy(commands, 9, temp, 0, 4);
+        float a = NetworkToHostOrderFloat(temp);//AppButton(A)
+
+        Array.Copy(commands, 13, temp, 0, 4);
+        float h = NetworkToHostOrderFloat(temp);//HomeButton(H)
+
+        if(a==1)
+        {
+            input.Speedup = ControllerInput.SpeedTypes.Up;
+        }else if(h==1){
+            input.Speedup = ControllerInput.SpeedTypes.Down;
+        }else{
+            input.Speedup = ControllerInput.SpeedTypes.NoChange;
+        }
+        input.Touch=new float[]{ 2*x-1, 2*y-1 };
         return input;
     }
 

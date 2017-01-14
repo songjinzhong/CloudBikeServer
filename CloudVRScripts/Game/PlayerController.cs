@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
 	private Vector3 compare;
 
+	private MyCarUserControl mcc;
+
 	//public float y;
 
     private void Start()
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         m_CharacterController = GetComponent<CharacterController>();
 		//y = yuanshi.transform.rotation.y;
 		v_y = yuanshi.transform.rotation.eulerAngles;
+		mcc = yuanshi.GetComponent<MyCarUserControl> ();
     }
 
     /// <summary>
@@ -56,7 +59,13 @@ public class PlayerController : MonoBehaviour
 
         updateRotation();
         //updatePosition();
+		updateControl();
     }
+
+	private void updateControl(){
+		mcc.c_v = inputManager.v;
+		mcc.c_h = inputManager.h;
+	}
 
     /// <summary>
     /// Updates the rotation of the target

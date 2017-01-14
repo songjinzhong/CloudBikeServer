@@ -54,3 +54,42 @@ public class TouchInput : g_Input
         }
     }
 }
+
+/// <summary>
+/// Controller input.
+/// </summary>
+public class ControllerInput : g_Input
+{
+    private float[] touch;       //正在触摸遥控器触控板的位置(x, y坐标)
+
+    public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
+    private SpeedTypes speedup;
+
+    public float[] Touch
+    {
+        get
+        {
+            return touch;
+        }
+
+        set
+        {
+            if (value == null)
+                throw new NullReferenceException("value == null");
+            touch = value;
+        }
+    }
+
+    public SpeedTypes Speedup
+    {
+        get
+        {
+            return speedup;
+        }
+
+        set
+        {
+            speedup = value;
+        }
+    }
+}

@@ -17,6 +17,10 @@ public class RemoteInputManager
     // touch
     private bool touchDown = false;
 
+	//controler
+	private float move = 0f;
+	private float speed = 0f;
+
     public RemoteInputManager(IClient socket)
     {
         init(socket);
@@ -46,11 +50,35 @@ public class RemoteInputManager
 				handleQuaternion ((GyroInput)input);
 			}
 			else if (input is TouchInput){
-				Debug.Log("input");
+				//Debug.Log("input");
 				handleTouchInput((TouchInput) input);
 			}
+            else if(input is ControllerInput){
+                Debug.Log(((ControllerInput)input).Touch[0]);
+				handleControllerInput ((ControllerInput)input);
+            }
         }
     }
+
+	/// <summary>
+	/// Handles the remote Controller input.
+	/// </summary>
+	private void handleControllerInput(ControllerInput input)
+	{
+		switch (input.Speedup) 
+		{
+			case ControllerInput.SpeedTypes.Up:
+				speed = 1f;
+				break;
+			case ControllerInput.SpeedTypes.Down:
+				speed = -1f;
+				break;
+			case ControllerInput.SpeedTypes.NoChange:
+				speed = 0f;
+				break;
+		}
+		move = input.Touch [0];
+	}
 
     /// <summary>
     /// Handles the remote touch input.
@@ -112,4 +140,18 @@ public class RemoteInputManager
             return touchDown;
         }
     }
+
+	public float v
+	{
+		get{
+			return speed;
+		}
+	}
+
+	public float h
+	{
+		get{
+			return move;
+		}
+	}
 }
