@@ -50,13 +50,19 @@ public class RemoteInputManager
 				handleQuaternion ((GyroInput)input);
 			}
 			else if (input is TouchInput){
-				//Debug.Log("input");
 				handleTouchInput((TouchInput) input);
 			}
-            else if(input is ControllerInput){
-                Debug.Log(((ControllerInput)input).Touch[0]);
-				handleControllerInput ((ControllerInput)input);
-            }
+            else if (input is ControllerInput)
+            {
+				//Debug.Log (input);
+                if (((ControllerInput)input).Touch[0] != 0.0)
+                    Debug.Log("Touch Pad: " + ((ControllerInput)input).Touch[0] + "  " + ((ControllerInput)input).Touch[1]);
+                if (((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange)
+                    Debug.Log("Speedup: " + ((ControllerInput)input).Speedup);
+                bool stateChanged = ((ControllerInput)input).Touch[0] != 0.0 || ((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange;
+                if(stateChanged)
+                    handleControllerInput((ControllerInput)input);
+            } 
         }
     }
 
@@ -78,6 +84,7 @@ public class RemoteInputManager
 				break;
 		}
 		move = input.Touch [0];
+		Debug.Log (speed + "----" + move);
 	}
 
     /// <summary>
