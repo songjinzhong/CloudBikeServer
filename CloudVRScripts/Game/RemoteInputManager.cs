@@ -20,6 +20,7 @@ public class RemoteInputManager
 	//controler
 	private float move = 0f;
 	private float speed = 0f;
+	private int clear = 0;
 
     public RemoteInputManager(IClient socket)
     {
@@ -54,12 +55,12 @@ public class RemoteInputManager
 			}
             else if (input is ControllerInput)
             {
-                if (((ControllerInput)input).Touch != 0.0)
+                /*if (((ControllerInput)input).Touch != 0.0)
                     Debug.Log("Touch Pad: " + ((ControllerInput)input).Touch + "  " + ((ControllerInput)input).Touch);
                 if (((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange)
                     Debug.Log("Speedup: " + ((ControllerInput)input).Speedup);
                 if(((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange)
-                    Debug.Log("Clear: " + ((ControllerInput)input).Clear);
+                    Debug.Log("Clear: " + ((ControllerInput)input).Clear);*/
                 bool stateChanged = ((ControllerInput)input).Touch != 0.0 || ((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange || ((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange;
                 if(stateChanged)
                     handleControllerInput((ControllerInput)input);
@@ -85,7 +86,12 @@ public class RemoteInputManager
 				break;
 		}
 		move = input.Touch;
-		Debug.Log (input.Clear);
+		//Debug.Log ((int)input.Clear);
+		if (input.Clear == ControllerInput.ClearTypes.Incr) {
+			clear++;
+		} else if (input.Clear == ControllerInput.ClearTypes.Desc) {
+			clear--;
+		}
 	}
 
     /// <summary>
@@ -160,6 +166,17 @@ public class RemoteInputManager
 	{
 		get{
 			return move;
+		}
+	}
+	public int c
+	{
+		get{
+			return clear;
+		}
+		set{
+			if (value == null)
+				clear = 0;
+			clear = value;
 		}
 	}
 }

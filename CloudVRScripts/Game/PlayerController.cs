@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
 	private MyCarUserControl mcc;
 
+	private VRCamera vrc;
+
 	//public float y;
 
     private void Start()
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         this.target = target;
         this.inputManager = inputManager;
+		this.vrc = target.GetComponent<VRCamera> ();
 
         targetInitialRotation = target.transform.rotation;
     }
@@ -60,7 +63,16 @@ public class PlayerController : MonoBehaviour
         updateRotation();
         //updatePosition();
 		updateControl();
+		setImages ();
     }
+
+	private void setImages(){
+		//Debug.Log (inputManager.c);
+		if(inputManager.c != 0){
+			vrc.c = vrc.c + inputManager.c;
+			inputManager.c = 0;
+		}
+	}
 
 	private void updateControl(){
 		mcc.c_v = inputManager.v;
