@@ -34,6 +34,6 @@ class RemoteOutputManager
 
     internal void finish()
     {
-        vrCamera.Destroy();
+        //vrCamera.Destroy();
     }
 }

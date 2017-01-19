@@ -54,12 +54,13 @@ public class RemoteInputManager
 			}
             else if (input is ControllerInput)
             {
-				//Debug.Log (input);
-                if (((ControllerInput)input).Touch[0] != 0.0)
-                    Debug.Log("Touch Pad: " + ((ControllerInput)input).Touch[0] + "  " + ((ControllerInput)input).Touch[1]);
+                if (((ControllerInput)input).Touch != 0.0)
+                    Debug.Log("Touch Pad: " + ((ControllerInput)input).Touch + "  " + ((ControllerInput)input).Touch);
                 if (((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange)
                     Debug.Log("Speedup: " + ((ControllerInput)input).Speedup);
-                bool stateChanged = ((ControllerInput)input).Touch[0] != 0.0 || ((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange;
+                if(((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange)
+                    Debug.Log("Clear: " + ((ControllerInput)input).Clear);
+                bool stateChanged = ((ControllerInput)input).Touch != 0.0 || ((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange || ((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange;
                 if(stateChanged)
                     handleControllerInput((ControllerInput)input);
             } 
@@ -83,8 +84,8 @@ public class RemoteInputManager
 				speed = 0f;
 				break;
 		}
-		move = input.Touch [0];
-		Debug.Log (speed + "----" + move);
+		move = input.Touch;
+		Debug.Log (input.Clear);
 	}
 
     /// <summary>

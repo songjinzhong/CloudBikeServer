@@ -75,23 +75,35 @@ class IOUtils
         float x = NetworkToHostOrderFloat(temp);
 
         Array.Copy(commands, 5, temp, 0, 4);
-        float y = NetworkToHostOrderFloat(temp);
+        float s = NetworkToHostOrderFloat(temp);//加减速
 
         Array.Copy(commands, 9, temp, 0, 4);
-        float a = NetworkToHostOrderFloat(temp);//AppButton(A)
+        float c = NetworkToHostOrderFloat(temp);//清晰度
 
-        Array.Copy(commands, 13, temp, 0, 4);
-        float h = NetworkToHostOrderFloat(temp);//HomeButton(H)
-
-        if(a==1)
+        //转向
+        input.Touch = 2 * x - 1;
+        //加减速
+        if(s==1)
         {
             input.Speedup = ControllerInput.SpeedTypes.Up;
-        }else if(h==1){
+        }else if(s==-1){
             input.Speedup = ControllerInput.SpeedTypes.Down;
         }else{
             input.Speedup = ControllerInput.SpeedTypes.NoChange;
         }
-        input.Touch=new float[]{ 2*x-1, 2*y-1 };
+        //清晰度
+        if (c == 1)
+        {
+            input.Clear = ControllerInput.ClearTypes.Incr;
+        }
+        else if (c == -1)
+        {
+            input.Clear = ControllerInput.ClearTypes.Desc;
+        }
+        else
+        {
+            input.Clear = ControllerInput.ClearTypes.NoChange;
+        }
         return input;
     }
 

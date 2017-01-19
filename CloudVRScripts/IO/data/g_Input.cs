@@ -60,12 +60,15 @@ public class TouchInput : g_Input
 /// </summary>
 public class ControllerInput : g_Input
 {
-    private float[] touch;       //正在触摸遥控器触控板的位置(x, y坐标)
+    private float touch;            //左右转向：向左<0, 向右>0，不变=0
 
     public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
-    private SpeedTypes speedup;
+    private SpeedTypes speedup;     //加减速
 
-    public float[] Touch
+    public enum ClearTypes : int { Incr=1, NoChange=0, Desc=-1 };
+    private ClearTypes clear;       //清晰度 1：增加Incr；-1：减小Desc；不变NoChange:0
+
+    public float Touch
     {
         get
         {
@@ -90,6 +93,21 @@ public class ControllerInput : g_Input
         set
         {
             speedup = value;
+        }
+    }
+
+    public ClearTypes Clear
+    {
+        get
+        {
+            return clear;
+        }
+
+        set
+        {
+            if (value == null)
+                throw new NullReferenceException("value == null");
+            clear = value;
         }
     }
 }
