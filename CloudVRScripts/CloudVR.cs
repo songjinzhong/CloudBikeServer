@@ -16,6 +16,8 @@ public class CloudVR : MonoBehaviour
     private IServer server;
     private List<Player> players = new List<Player>();
 
+	private int id;
+
     void Awake ()
     {
         var initDispatcher = UnityThreadHelper.Dispatcher;
@@ -26,6 +28,7 @@ public class CloudVR : MonoBehaviour
             server = new ServerUDP();
 
         server.ClientConnected += OnClientConnected;
+		id = 0;
     }
 
     void Update ()
@@ -55,6 +58,10 @@ public class CloudVR : MonoBehaviour
     /// </summary>
     void OnClientConnected(object sender, OnClientConnectedEventArgs args) 
     {
-		players.Add(new Player(args.ClientConnection, VRC));
+		players.Add(new Player(args.ClientConnection, VRC, id));
+		id++;
+		if (id > 3) {
+			id = 3;
+		}
     }
 }

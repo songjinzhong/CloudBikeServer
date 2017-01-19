@@ -61,9 +61,9 @@ public class RemoteInputManager
                     Debug.Log("Speedup: " + ((ControllerInput)input).Speedup);
                 if(((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange)
                     Debug.Log("Clear: " + ((ControllerInput)input).Clear);*/
-                bool stateChanged = ((ControllerInput)input).Touch != 0.0 || ((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange || ((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange;
-                if(stateChanged)
-                    handleControllerInput((ControllerInput)input);
+                //bool stateChanged = ((ControllerInput)input).Touch != 0.0 || ((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange || ((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange;
+                //if(stateChanged)
+                handleControllerInput((ControllerInput)input);
             } 
         }
     }

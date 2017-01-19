@@ -41,6 +41,10 @@ public class VRCamera : MonoBehaviour
 	//控制每次按下音量健变化的分辨率的宽度
 	private int CHANGE = 20;
 
+	//接受最大和最小的图片分辨率
+	private int MAX_image = 3000;
+	private int MIN_image = 500;
+
     void Start()
     {
 		textureHeight = (int)(textureWidth * dd);
@@ -82,9 +86,14 @@ public class VRCamera : MonoBehaviour
 		//Debug.Log (clear);
 		if (clear != 0) {
 			horizontalValue += clear * CHANGE;
+			if (horizontalValue < MIN_image) {
+				horizontalValue = MIN_image;
+			} else if (horizontalValue > MAX_image) {
+				horizontalValue = MAX_image;
+			}
 			clear = 0;
 		}
-		if (horizontalValue >= 500 && horizontalValue<=3000 && horizontalValue != textureWidth) {
+		if (horizontalValue >= MIN_image && horizontalValue<=MAX_image && horizontalValue != textureWidth) {
 			textureWidth = horizontalValue ;
 			textureHeight = (int)(textureWidth * dd);
 			UpdateImages ();

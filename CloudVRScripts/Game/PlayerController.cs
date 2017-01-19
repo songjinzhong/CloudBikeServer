@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public RemoteInputManager inputManager;
 
-	public GameObject yuanshi;
+	private GameObject yuanshi;
 
 	private Vector3 v_y;
 
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+		yuanshi = this.transform.parent.gameObject;
         m_CharacterController = GetComponent<CharacterController>();
 		//y = yuanshi.transform.rotation.y;
 		v_y = yuanshi.transform.rotation.eulerAngles;
@@ -77,6 +78,12 @@ public class PlayerController : MonoBehaviour
 	private void updateControl(){
 		mcc.c_v = inputManager.v;
 		mcc.c_h = inputManager.h;
+	}
+
+	// if client exit
+	public void finish(){
+		mcc.c_v = -1f;
+		mcc.c_h = 0f;
 	}
 
     /// <summary>
