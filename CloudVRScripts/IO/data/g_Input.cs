@@ -175,36 +175,36 @@ public class ControllerInput : g_Input
 // bike input
 public class BikeInput : g_Input
 {
-	public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
-	private SpeedTypes speed;     //加减速
+    public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
+    private SpeedTypes speed;     //加减速
 
-	public SpeedTypes Speed
-	{
-		get
-		{
-			return speed;
-		}
+    public SpeedTypes Speed
+    {
+        get
+        {
+            return speed;
+        }
 
-		set
-		{
-			speed = value;
-		}
-	}
+        set
+        {
+            speed = value;
+        }
+    }
 
-	private float turn;            //左右转向：向左<0, 向右>0，不变=0
+    private float turn;            //左右转向：向左<0, 向右>0，不变=0
 
-	public float Turn
-	{
-		get
-		{
-			return turn;
-		}
+    public float Turn
+    {
+        get
+        {
+            return turn;
+        }
 
-		set
-		{
-			if (value == null)
-				throw new NullReferenceException("value == null");
-			turn = value;
-		}
-	}
+        set
+        {
+            if (value == null)
+                throw new NullReferenceException("value == null");
+            turn = value;
+        }
+    }
 }
