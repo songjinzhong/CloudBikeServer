@@ -20,8 +20,8 @@ class IOUtils
                 return readTurn(input);
             case 5:
                 return readControllerCommand(input);
-			case 48:
-				return readSpeed (input);
+            case 48:
+                return readSpeed (input);
             default:
                 throw new ArgumentException("unknown input type");
         }
@@ -144,6 +144,50 @@ class IOUtils
         //转向
 		input.Turn = (2 * x - 10)/10;
         
+        return input;
+    }
+
+    /// <summary>
+    /// Convert a byte array representing a controller command into a <see cref="ControllerInput"/>.
+    /// </summary>
+    private static ControllerInput readControllerCommand(byte[] commands){
+        ControllerInput input=new ControllerInput();
+
+        byte[] temp = new byte[4];
+
+        Array.Copy(commands, 1, temp, 0, 4);
+        float x = NetworkToHostOrderFloat(temp);
+
+        Array.Copy(commands, 5, temp, 0, 4);
+        float s = NetworkToHostOrderFloat(temp);//加减速
+
+        Array.Copy(commands, 9, temp, 0, 4);
+        float c = NetworkToHostOrderFloat(temp);//清晰度
+
+        //转向
+        input.Touch = 2 * x - 1;
+        //加减速
+        if(s==1)
+        {
+            input.Speedup = ControllerInput.SpeedTypes.Up;
+        }else if(s==-1){
+            input.Speedup = ControllerInput.SpeedTypes.Down;
+        }else{
+            input.Speedup = ControllerInput.SpeedTypes.NoChange;
+        }
+        //清晰度
+        if (c == 1)
+        {
+            input.Clear = ControllerInput.ClearTypes.Incr;
+        }
+        else if (c == -1)
+        {
+            input.Clear = ControllerInput.ClearTypes.Desc;
+        }
+        else
+        {
+            input.Clear = ControllerInput.ClearTypes.NoChange;
+        }
         return input;
     }
 
