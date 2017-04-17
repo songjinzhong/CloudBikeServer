@@ -54,3 +54,157 @@ public class TouchInput : g_Input
         }
     }
 }
+
+public class SpeedInput : g_Input
+{
+    public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
+    private SpeedTypes speed;     //加减速
+
+    public SpeedTypes Speed
+    {
+        get
+        {
+            return speed;
+        }
+
+        set
+        {
+            speed = value;
+        }
+    }
+}
+
+public class ResolutionInput : g_Input
+{
+    public enum ResolutionTypes : int { Incr=1, NoChange=0, Desc=-1 };
+    private ResolutionTypes resolution;       //清晰度 1：增加Incr；-1：减小Desc；不变NoChange:0
+
+    public ResolutionTypes Resolution
+    {
+        get
+        {
+            return resolution;
+        }
+
+        set
+        {
+            if (value == null)
+                throw new NullReferenceException("value == null");
+            resolution = value;
+        }
+    }
+}
+
+public class TurnInput : g_Input
+{
+    private float turn;            //左右转向：向左<0, 向右>0，不变=0
+    
+    public float Turn
+    {
+        get
+        {
+            return turn;
+        }
+
+        set
+        {
+            if (value == null)
+                throw new NullReferenceException("value == null");
+            turn = value;
+        }
+    }
+}
+
+/// <summary>
+/// Controller input.
+/// </summary>
+public class ControllerInput : g_Input
+{
+    private float touch;            //左右转向：向左<0, 向右>0，不变=0
+
+    public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
+    private SpeedTypes speedup;     //加减速
+
+    public enum ClearTypes : int { Incr=1, NoChange=0, Desc=-1 };
+    private ClearTypes clear;       //清晰度 1：增加Incr；-1：减小Desc；不变NoChange:0
+
+    public float Touch
+    {
+        get
+        {
+            return touch;
+        }
+
+        set
+        {
+            if (value == null)
+                throw new NullReferenceException("value == null");
+            touch = value;
+        }
+    }
+
+    public SpeedTypes Speedup
+    {
+        get
+        {
+            return speedup;
+        }
+
+        set
+        {
+            speedup = value;
+        }
+    }
+
+    public ClearTypes Clear
+    {
+        get
+        {
+            return clear;
+        }
+
+        set
+        {
+            if (value == null)
+                throw new NullReferenceException("value == null");
+            clear = value;
+        }
+    }
+}
+
+// bike input
+public class BikeInput : g_Input
+{
+	public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
+	private SpeedTypes speed;     //加减速
+
+	public SpeedTypes Speed
+	{
+		get
+		{
+			return speed;
+		}
+
+		set
+		{
+			speed = value;
+		}
+	}
+
+	private float turn;            //左右转向：向左<0, 向右>0，不变=0
+
+	public float Turn
+	{
+		get
+		{
+			return turn;
+		}
+
+		set
+		{
+			if (value == null)
+				throw new NullReferenceException("value == null");
+			turn = value;
+		}
+	}
+}

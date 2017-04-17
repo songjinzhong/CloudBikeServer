@@ -14,18 +14,26 @@ public class CloudVR : MonoBehaviour
 	public GameObject GetVRC{get{ return VRC;}}
 
     private IServer server;
+	private IServer server2;
     private List<Player> players = new List<Player>();
+	private List<BikeConn> bikeConns = new List<BikeConn>();
+
+	private int id;
 
     void Awake ()
     {
         var initDispatcher = UnityThreadHelper.Dispatcher;
 
-        if (useTCP)
-            server = new ServerTCP();
+		if (useTCP) {
+			server = new ServerTCP ();
+			server2 = new ServerBikeTCP ();
+		}
         else
             server = new ServerUDP();
 
         server.ClientConnected += OnClientConnected;
+		server2.ClientConnected += OnBikeConnected;
+		id = 0;
     }
 
     void Update ()
@@ -45,6 +53,7 @@ public class CloudVR : MonoBehaviour
     void OnApplicationQuit()
     {
         server.Disconnect();
+		server2.Disconnect ();
 
         players.ForEach(player => player.Finish());
     }
@@ -55,6 +64,19 @@ public class CloudVR : MonoBehaviour
     /// </summary>
     void OnClientConnected(object sender, OnClientConnectedEventArgs args) 
     {
-		players.Add(new Player(args.ClientConnection, VRC));
+		players.Add(new Player(args.ClientConnection, VRC, id));
+		id++;
+		if (id > 3) {
+			id = -3;
+		}
     }
+
+	void OnBikeConnected(object sender, OnClientConnectedEventArgs args)
+	{
+		try{
+			bikeConns.Add (new BikeConn (args.ClientConnection, players[0].P_Bike, 0));
+		}catch{
+			Debug.Log ("mobile connect first!");
+		}
+	}
 }

@@ -23,19 +23,29 @@ public class PlayerController : MonoBehaviour
 
     public RemoteInputManager inputManager;
 
-	public GameObject yuanshi;
+	public BikeInputManager inputM;
+
+	private GameObject yuanshi;
 
 	private Vector3 v_y;
 
 	private Vector3 compare;
 
+	private MyCarUserControl mcc;
+
+	private VRCamera vrc;
+
+	private bool flag = false;
+
 	//public float y;
 
     private void Start()
     {
+		yuanshi = this.transform.parent.gameObject;
         m_CharacterController = GetComponent<CharacterController>();
 		//y = yuanshi.transform.rotation.y;
 		v_y = yuanshi.transform.rotation.eulerAngles;
+		mcc = yuanshi.GetComponent<MyCarUserControl> ();
     }
 
     /// <summary>
@@ -45,18 +55,54 @@ public class PlayerController : MonoBehaviour
     {
         this.target = target;
         this.inputManager = inputManager;
+		this.vrc = target.GetComponent<VRCamera> ();
+		this.flag = true;
 
         targetInitialRotation = target.transform.rotation;
     }
+
+	public void init(GameObject target, BikeInputManager inputManager){
+		this.target = target;
+		this.inputM = inputManager;
+		this.vrc = target.GetComponent<VRCamera> ();
+
+		targetInitialRotation = target.transform.rotation;
+	}
 
     private void FixedUpdate()
     {
         if (target == null)
             return;
-
-        updateRotation();
+			updateRotation ();
+			setImages ();
+		if(flag = true){
+			updateControl();
+		}
+        
         //updatePosition();
+
+
     }
+
+	private void setImages(){
+		//Debug.Log (inputManager.c);
+		if(inputManager.c != 0){
+			vrc.c = vrc.c + inputManager.c;
+			inputManager.c = 0;
+		}
+	}
+
+	private void updateControl(){
+		mcc.c_v = inputM.v;
+		mcc.c_h = inputM.h;
+	}
+
+	// if client exit
+	public void finish(){
+		Debug.Log ("finish");
+		mcc.c_v = -1f;
+		mcc.c_h = 0f;
+	}
 
     /// <summary>
     /// Updates the rotation of the target

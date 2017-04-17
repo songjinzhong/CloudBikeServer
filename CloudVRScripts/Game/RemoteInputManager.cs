@@ -17,6 +17,11 @@ public class RemoteInputManager
     // touch
     private bool touchDown = false;
 
+	//controler
+	private float move = 0f;
+	private float speed = 0f;
+	private int clear = 0;
+
     public RemoteInputManager(IClient socket)
     {
         init(socket);
@@ -46,11 +51,100 @@ public class RemoteInputManager
 				handleQuaternion ((GyroInput)input);
 			}
 			else if (input is TouchInput){
-				Debug.Log("input");
 				handleTouchInput((TouchInput) input);
 			}
+            else if (input is SpeedInput) {
+                Debug.Log("Speed: " + ((SpeedInput)input).Speed);
+                handleSpeedInput((SpeedInput)input);
+            }
+            else if(input is ResolutionInput) {
+                //if(((ResolutionInput)input).Resolution!=ResolutionInput.ResolutionTypes.NoChange)
+                    //Debug.Log("Resolution: " + ((ResolutionInput)input).Resolution);
+                handleResolutionInput((ResolutionInput)input);
+            }
+            else if(input is TurnInput) {
+                //if (((TurnInput)input).Turn != 0.0)
+                    //Debug.Log("Touch Pad: " + ((TurnInput)input).Turn + "  " + ((TurnInput)input).Turn);
+                handleTurnInput((TurnInput)input);
+            }
+
+            else if (input is ControllerInput)
+            {
+                if (((ControllerInput)input).Touch != 0.0)
+                    Debug.Log("Touch Pad: " + ((ControllerInput)input).Touch + "  " + ((ControllerInput)input).Touch);
+                //if (((ControllerInput)input).Speedup != ControllerInput.SpeedTypes.NoChange)
+                    Debug.Log("Speedup: " + ((ControllerInput)input).Speedup);
+                if(((ControllerInput)input).Clear!=ControllerInput.ClearTypes.NoChange)
+                    Debug.Log("Clear: " + ((ControllerInput)input).Clear);
+                handleControllerInput((ControllerInput)input);
+            } 
         }
     }
+
+    /// <summary>
+	/// Handles the remote speed command input.
+	/// </summary>
+	private void handleSpeedInput(SpeedInput input)
+	{
+		switch (input.Speed) 
+		{
+			case SpeedInput.SpeedTypes.Up:
+				speed = 1f;
+				break;
+			case SpeedInput.SpeedTypes.Down:
+				speed = -1f;
+				break;
+			case SpeedInput.SpeedTypes.NoChange:
+				speed = 0f;
+				break;
+		}
+	}
+
+    /// <summary>
+	/// Handles the remote resolution input.
+	/// </summary>
+	private void handleResolutionInput(ResolutionInput input)
+	{
+		if (input.Resolution == ResolutionInput.ResolutionTypes.Incr) {
+			clear++;
+		} else if (input.Resolution == ResolutionInput.ResolutionTypes.Desc) {
+			clear--;
+		}
+	}
+
+    /// <summary>
+	/// Handles the remote turn input.
+	/// </summary>
+	private void handleTurnInput(TurnInput input)
+	{
+		move = input.Turn;
+	}
+
+	/// <summary>
+	/// Handles the remote Controller input.
+	/// </summary>
+	private void handleControllerInput(ControllerInput input)
+	{
+		switch (input.Speedup) 
+		{
+			case ControllerInput.SpeedTypes.Up:
+				speed = 1f;
+				break;
+			case ControllerInput.SpeedTypes.Down:
+				speed = -1f;
+				break;
+			case ControllerInput.SpeedTypes.NoChange:
+				speed = 0f;
+				break;
+		}
+		move = input.Touch;
+		//Debug.Log ((int)input.Clear);
+		if (input.Clear == ControllerInput.ClearTypes.Incr) {
+			clear++;
+		} else if (input.Clear == ControllerInput.ClearTypes.Desc) {
+			clear--;
+		}
+	}
 
     /// <summary>
     /// Handles the remote touch input.
@@ -112,4 +206,29 @@ public class RemoteInputManager
             return touchDown;
         }
     }
+
+	public float v
+	{
+		get{
+			return speed;
+		}
+	}
+
+	public float h
+	{
+		get{
+			return move;
+		}
+	}
+	public int c
+	{
+		get{
+			return clear;
+		}
+		set{
+			if (value == null)
+				clear = 0;
+			clear = value;
+		}
+	}
 }

@@ -36,6 +36,15 @@ public class VRCamera : MonoBehaviour
 	//横向滑动条数值  
 	private int horizontalValue = 1920;
 
+	private int clear = 0;
+
+	//控制每次按下音量健变化的分辨率的宽度
+	private int CHANGE = 20;
+
+	//接受最大和最小的图片分辨率
+	private int MAX_image = 3000;
+	private int MIN_image = 500;
+
     void Start()
     {
 		textureHeight = (int)(textureWidth * dd);
@@ -74,7 +83,17 @@ public class VRCamera : MonoBehaviour
 	//private string txt = "1920";
     void Update()
     {
-		if (horizontalValue >= 500 && horizontalValue<=3000 && horizontalValue != textureWidth) {
+		//Debug.Log (clear);
+		if (clear != 0) {
+			horizontalValue += clear * CHANGE;
+			if (horizontalValue < MIN_image) {
+				horizontalValue = MIN_image;
+			} else if (horizontalValue > MAX_image) {
+				horizontalValue = MAX_image;
+			}
+			clear = 0;
+		}
+		if (horizontalValue >= MIN_image && horizontalValue<=MAX_image && horizontalValue != textureWidth) {
 			textureWidth = horizontalValue ;
 			textureHeight = (int)(textureWidth * dd);
 			UpdateImages ();
@@ -83,6 +102,7 @@ public class VRCamera : MonoBehaviour
 
     }
 	void UpdateImages(){
+		Debug.Log (horizontalValue);
 		renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
 		texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
 
@@ -119,4 +139,17 @@ public class VRCamera : MonoBehaviour
         if (Math.Abs(rightCameraX - _cameraRight.transform.localPosition.x) > tolerance)
             _cameraRight.transform.localPosition = new Vector3(rightCameraX, _cameraRight.transform.localPosition.y, _cameraRight.transform.localPosition.z);
     }
+
+	// set and get
+	public int c
+	{
+		get{
+			return clear;
+		}
+		set{
+			if (value == null)
+				clear = 0;
+			clear = value;
+		}
+	}
 }

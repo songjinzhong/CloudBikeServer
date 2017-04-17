@@ -37,6 +37,17 @@ public class ClientUDP : IClient
         }
     }
 
+	public g_Input readInput3(){
+		try {
+			byte[] receiveBytes = udpClient.Receive(ref clientIPEndPoint);
+			return IOUtils.handleInput(receiveBytes);
+		} catch (Exception)
+		{
+			disconnect();
+			throw new IOException("Client disconnected");
+		}
+	}
+
     public int[] readScreenResolution()
     {
         try

@@ -78,6 +78,13 @@ public class ClientTCP : IClient
         try
         {
             byte[] input = reader.ReadBytes(1 + (4 * 4));
+//			if(input[0] == 0)
+//				return IOUtils.handleInput(input);
+//			Debug.Log("begin");
+//			for(var i = 0; i < input.Length; i++){
+//				Debug.Log(input[i]);
+//			}
+//			Debug.Log("end");
             return IOUtils.handleInput(input);
         }
         catch (Exception)
@@ -86,6 +93,27 @@ public class ClientTCP : IClient
             throw new IOException("Client disconnected");
         }
     }
+
+	public g_Input readInput3()
+	{
+		try
+		{
+			byte[] input = reader.ReadBytes(3);
+			if(input[0] == 0)
+				return IOUtils.handleInput(input);
+			Debug.Log("begin");
+			for(var i = 0; i < input.Length; i++){
+				Debug.Log(input[i]);
+			}
+			Debug.Log("end");
+			return IOUtils.handleInput(input);
+		}
+		catch (Exception)
+		{
+			disconnect();
+			throw new IOException("Client disconnected");
+		}
+	}
 
     public void disconnect()
     {
