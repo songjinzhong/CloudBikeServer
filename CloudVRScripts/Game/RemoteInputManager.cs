@@ -149,7 +149,7 @@ public class RemoteInputManager
 	/// <summary>
 	/// Handles the remote Controller input.
 	/// </summary>
-	private void handleControllerInput(ControllerInput input)
+	private void handleControllerInputs(ControllerInput input)
 	{
 		switch (input.Speedup) 
 		{
