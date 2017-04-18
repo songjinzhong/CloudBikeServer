@@ -20,8 +20,6 @@ public class CloudVR : MonoBehaviour
 
 	private int id;
 
-	private int id;
-
     void Awake ()
     {
         var initDispatcher = UnityThreadHelper.Dispatcher;
