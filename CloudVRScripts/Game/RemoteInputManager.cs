@@ -81,6 +81,32 @@ public class RemoteInputManager
         }
     }
 
+	/// <summary>
+	/// Handles the remote Controller input.
+	/// </summary>
+	private void handleControllerInput(ControllerInput input)
+	{
+		switch (input.Speedup) 
+		{
+			case ControllerInput.SpeedTypes.Up:
+				speed = 1f;
+				break;
+			case ControllerInput.SpeedTypes.Down:
+				speed = -1f;
+				break;
+			case ControllerInput.SpeedTypes.NoChange:
+				speed = 0f;
+				break;
+		}
+		move = input.Touch;
+		//Debug.Log ((int)input.Clear);
+		if (input.Clear == ControllerInput.ClearTypes.Incr) {
+			clear++;
+		} else if (input.Clear == ControllerInput.ClearTypes.Desc) {
+			clear--;
+		}
+	}
+
     /// <summary>
 	/// Handles the remote speed command input.
 	/// </summary>

@@ -20,6 +20,8 @@ public class CloudVR : MonoBehaviour
 
 	private int id;
 
+	private int id;
+
     void Awake ()
     {
         var initDispatcher = UnityThreadHelper.Dispatcher;
@@ -32,7 +34,7 @@ public class CloudVR : MonoBehaviour
             server = new ServerUDP();
 
         server.ClientConnected += OnClientConnected;
-		server2.ClientConnected += OnBikeConnected;
+        server2.ClientConnected += OnBikeConnected;
 		id = 0;
     }
 
@@ -67,7 +69,7 @@ public class CloudVR : MonoBehaviour
 		players.Add(new Player(args.ClientConnection, VRC, id));
 		id++;
 		if (id > 3) {
-			id = -3;
+            id = -3;
 		}
     }
 
