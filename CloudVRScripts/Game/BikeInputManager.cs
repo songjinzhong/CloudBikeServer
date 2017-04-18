@@ -22,6 +22,10 @@ public class BikeInputManager
 	private float speed = 0f;
 	private int clear = 0;
 
+	public BikeInputManager(){
+
+	}
+
 	public BikeInputManager(IClient socket)
     {
         init(socket);

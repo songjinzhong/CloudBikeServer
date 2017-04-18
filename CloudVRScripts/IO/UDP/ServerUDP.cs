@@ -5,7 +5,7 @@ using UnityEngine;
 
 class ServerUDP : IServer
 {
-    private static readonly int DEFAULT_PORT = 2099;
+    private static readonly int DEFAULT_PORT = 4099;
 
     private int clientPort = DEFAULT_PORT;
 

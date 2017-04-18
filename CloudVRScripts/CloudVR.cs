@@ -29,9 +29,10 @@ public class CloudVR : MonoBehaviour
 		if (useTCP) {
 			server = new ServerTCP ();
 			server2 = new ServerBikeTCP ();
+		} else {
+			server = new ServerUDP ();
+			server2 = new ServerBikeTCP ();
 		}
-        else
-            server = new ServerUDP();
 
         server.ClientConnected += OnClientConnected;
         server2.ClientConnected += OnBikeConnected;

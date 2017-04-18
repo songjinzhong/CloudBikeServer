@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public RemoteInputManager inputManager;
 
-    public BikeInputManager inputM;
+    public BikeInputManager inputM = new BikeInputManager();
 
 	private GameObject yuanshi;
 
@@ -56,17 +56,16 @@ public class PlayerController : MonoBehaviour
         this.target = target;
         this.inputManager = inputManager;
 		this.vrc = target.GetComponent<VRCamera> ();
-        this.flag = true;
-
         targetInitialRotation = target.transform.rotation;
     }
 
 	public void init(GameObject target, BikeInputManager inputManager){
-		this.target = target;
+		//this.target = target;
 		this.inputM = inputManager;
-		this.vrc = target.GetComponent<VRCamera> ();
+		//this.vrc = target.GetComponent<VRCamera> ();
+		this.flag = true;
 
-		targetInitialRotation = target.transform.rotation;
+		//targetInitialRotation = target.transform.rotation;
 	}
 
     private void FixedUpdate()
