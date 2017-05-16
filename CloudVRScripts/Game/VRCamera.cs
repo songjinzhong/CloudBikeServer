@@ -58,6 +58,8 @@ public class VRCamera : MonoBehaviour
         _cameraRight.targetTexture = renderTexture;
 		//bb.normal.background = null; //这是设置背景填充的  
 		bb.fontSize = 50;  
+		//SendGzip.test ();
+		//SendGzip.t();
     }
 
     /// <summary>
@@ -70,8 +72,11 @@ public class VRCamera : MonoBehaviour
         texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         texture.Apply();
 
-        byte[] bytes = texture.EncodeToJPG();
-
+		byte[] bytes = texture.EncodeToJPG(25);
+		//Debug.Log ("------" + bytes.Length);
+		//byte[] b = SendGzip.compress (bytes);
+		//Debug.Log ("------" + b.Length);
+		//return b;
         return bytes;
     }
 
