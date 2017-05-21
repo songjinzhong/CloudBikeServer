@@ -74,9 +74,9 @@ class IOUtils
 
 	private static BikeInput readSpeed(byte[] commands)
     {   
-		Debug.Log("speed turn");
-		Debug.Log(commands[1]);
-		Debug.Log (commands [2]);
+		//Debug.Log("speed turn");
+		//Debug.Log(commands[1]);
+		//Debug.Log (commands [2]);
 		BikeInput input = new BikeInput();
 
         //byte[] temp = new byte[4];
@@ -88,8 +88,10 @@ class IOUtils
         //加减速
         if(s==1)
         {
+			//Debug.Log ("1");
 			input.Speed = BikeInput.SpeedTypes.Up;
 		}else if(s==-1 || s == 0){
+			//Debug.Log ("0");
 			input.Speed = BikeInput.SpeedTypes.Down;
         }else{
 			input.Speed = BikeInput.SpeedTypes.NoChange;

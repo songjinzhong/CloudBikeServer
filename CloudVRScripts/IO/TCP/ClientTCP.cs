@@ -101,11 +101,6 @@ public class ClientTCP : IClient
 			byte[] input = reader.ReadBytes(3);
 			if(input[0] == 0)
 				return IOUtils.handleInput(input);
-			Debug.Log("begin");
-			for(var i = 0; i < input.Length; i++){
-				Debug.Log(input[i]);
-			}
-			Debug.Log("end");
 			return IOUtils.handleInput(input);
 		}
 		catch (Exception)

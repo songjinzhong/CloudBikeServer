@@ -107,7 +107,7 @@ public class VRCamera : MonoBehaviour
 
     }
 	void UpdateImages(){
-		Debug.Log (horizontalValue);
+		//Debug.Log (horizontalValue);
 		renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
 		texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
 
