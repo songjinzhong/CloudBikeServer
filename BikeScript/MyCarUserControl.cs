@@ -90,7 +90,7 @@ public class MyCarUserControl : MonoBehaviour
 			hh = h;
 		}
 		frontAngle2.transform.localRotation = Quaternion.Euler (new Vector3(0,20f*hh/33f,-15f*hh/33f));
-		controller.Move(hh, 1f, 0, handbrake,60f*v/100f);
+		controller.Move(h, 1f, 0, handbrake,v / 4);
 	}
 	// 蓝牙控制函数
 	void BlueToothController(){
@@ -123,11 +123,11 @@ public class MyCarUserControl : MonoBehaviour
 	} 
 
 	void judge(Vector3 v1, Vector3 v2){
-		Debug.Log (index);
+		//Debug.Log (index);
 		if (Vector3.Distance(v1, v2) < 2f) {
 			index += 1;
 		}
-		if (index == 16) {
+		if (index == va.Count) {
 			index = 0;
 		}
 	}
