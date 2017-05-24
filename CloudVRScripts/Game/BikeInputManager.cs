@@ -90,19 +90,21 @@ public class BikeInputManager
 
 	// handles bikeinput
 	private void handBikeInput(BikeInput input){
-		switch (input.Speed) 
-		{
-		case BikeInput.SpeedTypes.Up:
-			speed = 1f;
-			break;
-		case BikeInput.SpeedTypes.Down:
-			speed = -1f;
-			break;
-		case BikeInput.SpeedTypes.NoChange:
-			speed = 0f;
-			break;
-		}
-		move = input.Turn;
+//		switch (input.Speed) 
+//		{
+//		case BikeInput.SpeedTypes.Up:
+//			speed = 1f;
+//			break;
+//		case BikeInput.SpeedTypes.Down:
+//			speed = -1f;
+//			break;
+//		case BikeInput.SpeedTypes.NoChange:
+//			speed = 0f;
+//			break;
+//		}
+		speed = input.Speed;
+		move = Mathf.Clamp (input.Turn, -1, 1);
+		//Debug.Log (move);
 
 	}
 

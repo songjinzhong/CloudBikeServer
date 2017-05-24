@@ -175,10 +175,10 @@ public class ControllerInput : g_Input
 // bike input
 public class BikeInput : g_Input
 {
-    public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
-    private SpeedTypes speed;     //加减速
-
-    public SpeedTypes Speed
+//    public enum SpeedTypes : int { Down = -1, NoChange=0, Up = 1};
+//    private SpeedTypes speed;     //加减速
+	private float speed;
+    public float Speed
     {
         get
         {

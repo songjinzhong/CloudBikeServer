@@ -75,7 +75,6 @@ class IOUtils
 	private static BikeInput readSpeed(byte[] commands)
     {   
 		//Debug.Log("speed turn");
-		//Debug.Log(commands[1]);
 		//Debug.Log (commands [2]);
 		BikeInput input = new BikeInput();
 
@@ -84,21 +83,37 @@ class IOUtils
         //Array.Copy(commands, 1, temp, 0, 4);
         //float s = NetworkToHostOrderFloat(temp);//加减速
 		float s = commands[1] - 48;
+
+		//byte[] bs = new byte[1];
+		//Array.Copy (commands, 1, bs, 0, 1);
+		//string str = System.Text.Encoding.ASCII.GetString (bs);
+		//Debug.Log (str);
+		//float num = float.Parse (str);
 		//Debug.Log(commands[1]);
         //加减速
-        if(s==1)
-        {
-			//Debug.Log ("1");
-			input.Speed = BikeInput.SpeedTypes.Up;
-		}else if(s==-1 || s == 0){
-			//Debug.Log ("0");
-			input.Speed = BikeInput.SpeedTypes.Down;
-        }else{
-			input.Speed = BikeInput.SpeedTypes.NoChange;
-        }
+//        if(s==1)
+//        {
+//			//Debug.Log ("1");
+//			input.Speed = BikeInput.SpeedTypes.Up;
+//		}else if(s==-1 || s == 0){
+//			//Debug.Log ("0");
+//			input.Speed = BikeInput.SpeedTypes.Down;
+//        }else{
+//			input.Speed = BikeInput.SpeedTypes.NoChange;
+//        }
+		input.Speed = 9 - s;
 
-		float x = commands[2] - 48;
-		//Debug.Log (x);
+		float x = commands[3] - 48;
+		Debug.Log (x);
+		if (x >= 4 && x <= 6) {
+			x = 5f;
+		} else if (x >= 2 && x <= 3) {
+			x = 1f;
+		} else if (x >= 0 && x <= 1) {
+			x = 1f;
+		} else if (x >= 7 && x <= 9) {
+			x = 9f;
+		}
 		//转向
 		input.Turn = (2 * x - 10)/10;
 
