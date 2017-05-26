@@ -35,6 +35,7 @@ public class CloudVR : MonoBehaviour
         server.ClientConnected += OnClientConnected;
         server2.ClientConnected += OnBikeConnected;
 		id = 0;
+		DebugOnScreen.Add ("Bike Connected",bikeConns.Count);
     }
 
     void Update ()
@@ -77,6 +78,7 @@ public class CloudVR : MonoBehaviour
 	{
 		try{
 			bikeConns.Add (new BikeConn (args.ClientConnection, players[players.Count - 1].P_Bike, 0));
+			DebugOnScreen.Add ("Bike Connected",bikeConns.Count);
 		}catch{
 			Debug.Log ("mobile connect first!");
 		}
