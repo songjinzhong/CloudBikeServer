@@ -72,7 +72,7 @@ public class VRCamera : MonoBehaviour
         texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         texture.Apply();
 
-		byte[] bytes = texture.EncodeToJPG(25);
+		byte[] bytes = texture.EncodeToJPG(30);
 		//Debug.Log ("------" + bytes.Length);
 		//byte[] b = SendGzip.compress (bytes);
 		//Debug.Log ("------" + b.Length);

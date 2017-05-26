@@ -57,6 +57,7 @@ public class CloudVR : MonoBehaviour
 		server2.Disconnect ();
 
         players.ForEach(player => player.Finish());
+		bikeConns.ForEach (bikeconn => bikeconn.Finish ());
     }
 
     /// <summary>
