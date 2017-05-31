@@ -14,11 +14,11 @@ public class VRCamera : MonoBehaviour
     // camera resolution
     public int textureWidth = 1920;
 
-	public float dd = 0.5626f;
+	private float dd = 0.5626f;
 	public int textureHeight;
 
     public Camera _cameraLeft;
-    public Camera _cameraRight;
+    //public Camera _cameraRight;
 
     // "lenses" (cameras) regulation parameters, adjust these as you would adjust the lenses on a real VR headset
     public float Distance = 0f;
@@ -55,7 +55,7 @@ public class VRCamera : MonoBehaviour
 
         // both cameras will render on this texture
         _cameraLeft.targetTexture = renderTexture;
-        _cameraRight.targetTexture = renderTexture;
+        //_cameraRight.targetTexture = renderTexture;
 		//bb.normal.background = null; //这是设置背景填充的  
 		bb.fontSize = 50;  
 		//SendGzip.test ();
@@ -115,7 +115,7 @@ public class VRCamera : MonoBehaviour
 
 		// both cameras will render on this texture
 		_cameraLeft.targetTexture = renderTexture;
-		_cameraRight.targetTexture = renderTexture;
+		//_cameraRight.targetTexture = renderTexture;
 		//renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
 	}
 		
@@ -136,13 +136,13 @@ public class VRCamera : MonoBehaviour
         // Adjust rotations
         if (Math.Abs(leftCameraDegree - _cameraLeft.transform.localRotation.y) > tolerance)
             _cameraLeft.transform.localRotation = new Quaternion(_cameraLeft.transform.localRotation.x, leftCameraDegree, _cameraLeft.transform.localRotation.z, _cameraLeft.transform.localRotation.w);
-        if (Math.Abs(rightCameraDegree - _cameraRight.transform.localRotation.y) > tolerance)
-            _cameraRight.transform.localRotation = new Quaternion(_cameraRight.transform.localRotation.x, rightCameraDegree, _cameraRight.transform.localRotation.z, _cameraRight.transform.localRotation.w);
+        //if (Math.Abs(rightCameraDegree - _cameraRight.transform.localRotation.y) > tolerance)
+        //    _cameraRight.transform.localRotation = new Quaternion(_cameraRight.transform.localRotation.x, rightCameraDegree, _cameraRight.transform.localRotation.z, _cameraRight.transform.localRotation.w);
         // Adjust x positions of cameras
         if (Math.Abs(leftCameraX - _cameraLeft.transform.localPosition.x) > tolerance)
             _cameraLeft.transform.localPosition = new Vector3(leftCameraX, _cameraLeft.transform.localPosition.y, _cameraLeft.transform.localPosition.z);
-        if (Math.Abs(rightCameraX - _cameraRight.transform.localPosition.x) > tolerance)
-            _cameraRight.transform.localPosition = new Vector3(rightCameraX, _cameraRight.transform.localPosition.y, _cameraRight.transform.localPosition.z);
+        //if (Math.Abs(rightCameraX - _cameraRight.transform.localPosition.x) > tolerance)
+        //    _cameraRight.transform.localPosition = new Vector3(rightCameraX, _cameraRight.transform.localPosition.y, _cameraRight.transform.localPosition.z);
     }
 
 	// set and get
