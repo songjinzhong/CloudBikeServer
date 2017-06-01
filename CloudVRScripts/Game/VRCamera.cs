@@ -12,7 +12,7 @@ public class VRCamera : MonoBehaviour
     private Texture2D texture;
 
     // camera resolution
-    public int textureWidth = 1920;
+    public int textureWidth = 2500;
 
 	private float dd = 0.5626f;
 	public int textureHeight;
@@ -34,7 +34,7 @@ public class VRCamera : MonoBehaviour
 	private GUIStyle bb=new GUIStyle();  
 
 	//横向滑动条数值  
-	private int horizontalValue = 1920;
+	private int horizontalValue = 2500;
 
 	private int clear = 0;
 
@@ -72,7 +72,7 @@ public class VRCamera : MonoBehaviour
         texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         texture.Apply();
 
-		byte[] bytes = texture.EncodeToJPG(30);
+		byte[] bytes = texture.EncodeToJPG(75);
 		//Debug.Log ("------" + bytes.Length);
 		//byte[] b = SendGzip.compress (bytes);
 		//Debug.Log ("------" + b.Length);
