@@ -104,8 +104,12 @@ class IOUtils
 		input.Speed = 9 - s;
 
 		float x = commands[3] - 48;
-		Debug.Log (x);
-		if (x >= 4 && x <= 6) {
+		float a = 'a';
+		//Debug.Log (x);
+		if (x == a - 48) {
+			x = -1f;
+		}
+		else if (x >= 4 && x <= 6) {
 			x = 5f;
 		} else if (x >= 2 && x <= 3) {
 			x = 1f;

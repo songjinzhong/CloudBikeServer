@@ -103,7 +103,11 @@ public class BikeInputManager
 //			break;
 //		}
 		speed = input.Speed;
-		move = Mathf.Clamp (input.Turn, -1, 1);
+		if (input.Turn < -1) {
+			move = -2f;
+		} else {
+			move = Mathf.Clamp (input.Turn, -1, 1);
+		}
 		//Debug.Log (move);
 
 	}
