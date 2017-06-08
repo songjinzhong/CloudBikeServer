@@ -49,7 +49,7 @@ public class VRCamera : MonoBehaviour
     {
 		textureHeight = (int)(textureWidth * dd);
         renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
-        texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+        texture = new Texture2D(renderTexture.width / 2, renderTexture.height, TextureFormat.RGB24, false);
         
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
@@ -69,7 +69,7 @@ public class VRCamera : MonoBehaviour
     internal byte[] GetImage()
     {
         RenderTexture.active = renderTexture;
-        texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        texture.ReadPixels(new Rect(0, 0, renderTexture.width / 2, renderTexture.height), 0, 0);
         texture.Apply();
 
 		byte[] bytes = texture.EncodeToJPG(75);
@@ -109,7 +109,7 @@ public class VRCamera : MonoBehaviour
 	void UpdateImages(){
 		//Debug.Log (horizontalValue);
 		renderTexture = new RenderTexture(textureWidth/imageScaleFactor, textureHeight/imageScaleFactor, 16);
-		texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+		texture = new Texture2D(renderTexture.width / 2, renderTexture.height, TextureFormat.RGB24, false);
 
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
