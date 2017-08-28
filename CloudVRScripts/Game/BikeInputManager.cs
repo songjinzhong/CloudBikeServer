@@ -20,6 +20,7 @@ public class BikeInputManager
 	//controler
 	private float move = 0f;
 	private float speed = 0f;
+	private float speed2 = 0f;
 	private int clear = 0;
 
 	public BikeInputManager(){
@@ -103,6 +104,7 @@ public class BikeInputManager
 //			break;
 //		}
 		speed = input.Speed;
+		speed2 = input.Speed2;
 		if (input.Turn < -1) {
 			move = -2f;
 		} else {
@@ -242,6 +244,13 @@ public class BikeInputManager
 	{
 		get{
 			return speed;
+		}
+	}
+
+	public float v2
+	{
+		get{
+			return speed2;
 		}
 	}
 

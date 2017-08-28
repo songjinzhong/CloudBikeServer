@@ -83,6 +83,7 @@ class IOUtils
         //Array.Copy(commands, 1, temp, 0, 4);
         //float s = NetworkToHostOrderFloat(temp);//加减速
 		float s = commands[1] - 48;
+		float s2 = commands [2] - 48;
 
 		//byte[] bs = new byte[1];
 		//Array.Copy (commands, 1, bs, 0, 1);
@@ -102,6 +103,7 @@ class IOUtils
 //			input.Speed = BikeInput.SpeedTypes.NoChange;
 //        }
 		input.Speed = 9 - s;
+		input.Speed2 = 9 - s2;
 
 		float x = commands[3] - 48;
 		float a = 'a';

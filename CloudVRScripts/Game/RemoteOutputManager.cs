@@ -8,6 +8,9 @@ class RemoteOutputManager
 {
     private VRCamera vrCamera;
     private IClient client;
+	//绘制持续时间(秒)
+	public float ClearTime = 1000;
+	float nowTime = 0;
 
     public RemoteOutputManager(VRCamera vrCamera, IClient client)
     {
@@ -22,15 +25,33 @@ class RemoteOutputManager
         vrCamera.textureHeight = screenResolution[1];
     }
 
-    public void Update()
+    public void Update(string speed)
     {
         sendFrame(vrCamera.GetImage());
+
+		if (nowTime < ClearTime) {
+			nowTime += Time.deltaTime * 1000;
+		} else {
+			nowTime = 0;
+			byte[] speedData = getSpeed (speed);
+			sendSpeed (speedData);
+		}
     }
 
     private void sendFrame(byte[] bytes)
     {
         client.sendImage(bytes);
     }
+
+	private void sendSpeed(byte[] bytes){
+		client.sendSpeed (bytes);
+	}
+
+	private byte[] getSpeed(string speed){
+		string data = "|" + speed + "|1200|30|20";
+		byte[] speedData = System.Text.Encoding.Default.GetBytes (data);
+		return speedData;
+	}
 
     internal void finish()
     {

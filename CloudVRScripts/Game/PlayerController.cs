@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private bool flag = false;
 
+	private float speed = 0f;
+
 	//public float y;
 
     private void Start()
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
 	private void updateControl(){
         mcc.c_v = inputM.v;
+		speed = inputM.v * 10 + inputM.v2;
         mcc.c_h = inputM.h;
 	}
 
@@ -145,4 +148,10 @@ public class PlayerController : MonoBehaviour
         else
             speed = 0;
     }
+
+	public string Speed {
+		get{
+			return speed.ToString();
+		}
+	}
 }

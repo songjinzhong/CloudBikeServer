@@ -190,6 +190,16 @@ public class BikeInput : g_Input
             speed = value;
         }
     }
+	// speed2 for second speed flag
+	private float speed2;
+	public float Speed2{
+		get{
+			return speed2;
+		}
+		set{
+			speed2 = value;
+		}
+	}
 
     private float turn;            //左右转向：向左<0, 向右>0，不变=0
 

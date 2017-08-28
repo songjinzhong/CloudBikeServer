@@ -15,6 +15,7 @@ public class ClientTCP : IClient
     private NetworkStream stream;
     private BinaryWriter writer;
     private BinaryReader reader;
+	private byte[] speedFlag;
 
     public ClientTCP(Socket socket)
     {
@@ -24,6 +25,7 @@ public class ClientTCP : IClient
 	BikeInput bi;
     private void init(Socket clientSocket)
     {
+		speedFlag = System.Text.Encoding.Default.GetBytes ("s");
         try
         {
             stream = new NetworkStream(clientSocket);
@@ -75,6 +77,24 @@ public class ClientTCP : IClient
             throw new IOException("Client disconnected");
         }
     }
+
+	public void sendSpeed(byte[] data){
+		try
+		{
+			//writer.Write(IPAddress.HostToNetworkOrder(data.Length));
+//			Debug.Log(System.Text.Encoding.Default.GetString(speedFlag));
+			Debug.Log(speedFlag.Length);
+			Debug.Log(speedFlag[0]);
+			writer.Write(IPAddress.HostToNetworkOrder(data.Length + 1));
+			writer.Write(speedFlag);
+			writer.Write(data);
+		}
+		catch (Exception)
+		{
+			disconnect();
+			throw new IOException("Client disconnected");
+		}
+	}
 
     public g_Input readInput()
     {

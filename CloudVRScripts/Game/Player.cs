@@ -39,7 +39,8 @@ class Player
 
     internal void Update()
     {
-        remoteOutputManager.Update();
+		string speed = playerController.Speed;
+		remoteOutputManager.Update(speed);
     }
 
     internal void Finish()

@@ -36,6 +36,9 @@ public class ClientUDP : IClient
             throw new IOException("Client disconnected");
         }
     }
+	public void sendSpeed(byte[] data){
+
+	}
 
 	public g_Input readInput3(){
 		try {
