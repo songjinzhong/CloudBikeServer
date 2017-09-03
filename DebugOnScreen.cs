@@ -14,15 +14,17 @@ public  class DebugOnScreen : MonoBehaviour {
 	
 	private float IntervalSize = 26;
 	//绘制持续时间(秒)
-	private float ClearTime = 5f;
+	private float ClearTime = 3f;
 	static float nowTime = 0;
 	
 	void Start()
 	{
+		Debug.Log ("start");
 	}
 	
 	void Update()
 	{
+		Debug.Log (nowTime);
 		if(nowTime < ClearTime)
 		   nowTime+=Time.deltaTime;
 		else
