@@ -67,6 +67,11 @@ public class CloudVR : MonoBehaviour
     /// </summary>
     void OnClientConnected(object sender, OnClientConnectedEventArgs args) 
     {
+		Debug.Log (players.Count);
+		if (players.Count >= 2) {
+			DebugOnScreen.Add ("two bikes aleardy!","");
+			return;
+		}
 		players.Add(new Player(args.ClientConnection, VRC, id));
 		id++;
 		if (id > 3) {
