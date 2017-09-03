@@ -65,7 +65,6 @@ public class MyCarUserControl : MonoBehaviour
 		}
 		hh = 0;
 		isSpeed = false;
-		Debug.Log (empty);
     }
     void FixedUpdate()
     {
@@ -85,7 +84,6 @@ public class MyCarUserControl : MonoBehaviour
 			isSpeed = true;
 			RunOnlySpeed ();
 		} else {
-      Debug.Log(v);
 			frontAngle2.transform.localRotation = Quaternion.Euler(new Vector3(0, 20f * h, -15f * h));
 			//Debug.Log (v);
 			controller.Move(h, 1f, 0, handbrake, 3 * v);
