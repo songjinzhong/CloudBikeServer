@@ -57,7 +57,7 @@ public class MyCarUserControl : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e.ToString());
-            DebugOnScreen.Add("config_error", "配置信息错误");
+            //DebugOnScreen.Add("config_error", "配置信息错误");
         }
 		index = 1;
 		foreach (Transform child in empty.transform) {
@@ -65,6 +65,7 @@ public class MyCarUserControl : MonoBehaviour
 		}
 		hh = 0;
 		isSpeed = false;
+		Debug.Log (empty);
     }
     void FixedUpdate()
     {
@@ -124,7 +125,7 @@ public class MyCarUserControl : MonoBehaviour
 		}
 		//Debug.Log (hh);
 		frontAngle2.transform.localRotation = Quaternion.Euler (new Vector3(0,10f*hh/15f,-7f*hh/15f));
-		controller.Move(h/20f, 1f, 0, handbrake, 3 * v);
+		controller.Move(h/20f, 1f, 0, handbrake, 2.5f * v);
 	}
 
 	//计算夹角

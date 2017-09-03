@@ -12,13 +12,13 @@ public  class DebugOnScreen : MonoBehaviour {
 	public GUIStyle style = null;
 	public Rect rect;
 	
-	public float IntervalSize = 16;
+	private float IntervalSize = 26;
 	//绘制持续时间(秒)
-	public float ClearTime = 2000;
-	float nowTime = 0;
+	private float ClearTime = 5f;
+	static float nowTime = 0;
 	
 	void Start()
-	{ 
+	{
 	}
 	
 	void Update()
@@ -42,7 +42,7 @@ public  class DebugOnScreen : MonoBehaviour {
 	{
 		for(int i=0;i<names.Count;i++)
 		{
- 			GUI.Box(new Rect(0,i*IntervalSize,rect.width,rect.height),
+ 			GUI.Box(new Rect(0,i*IntervalSize + 20,rect.width,rect.height),
 				names[i] +" : "+messages[i],style);
 		}
 		
@@ -54,6 +54,7 @@ public  class DebugOnScreen : MonoBehaviour {
 		{
 			names.Add(name);
 			messages.Add(message);
+			nowTime = 0;
 		}
 		else
 		{
@@ -73,6 +74,7 @@ public  class DebugOnScreen : MonoBehaviour {
 	{
 		string message = mess.ToString();
 		Add(name,message);
+		nowTime = 0;
 	}
 	
 	public static void Add(string name, bool mess)
@@ -85,6 +87,7 @@ public  class DebugOnScreen : MonoBehaviour {
 			message = mess.ToString()+".....";
 		
 		Add(name,message);
+		nowTime = 0;
 	}
   
 }

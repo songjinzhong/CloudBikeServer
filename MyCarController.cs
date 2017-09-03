@@ -98,7 +98,7 @@ public class MyCarController : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e.ToString());
-            DebugOnScreen.Add("config_error", "配置信息错误");
+            //DebugOnScreen.Add("config_error", "配置信息错误");
         }
     }
 

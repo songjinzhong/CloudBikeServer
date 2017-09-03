@@ -43,7 +43,7 @@ public class MySerialPort : MonoBehaviour {
 			info = LoadFile (Application.persistentDataPath, "config.txt");
 			portName = info [1].ToString();
 		}catch(Exception e){
-			DebugOnScreen.Add ("config_error","配置信息错误");
+			//DebugOnScreen.Add ("config_error","配置信息错误");
 		}
 		spstart = new SerialPort(portName, 9600, Parity.None, 8, StopBits.One);
 		try
@@ -61,7 +61,7 @@ public class MySerialPort : MonoBehaviour {
 			if (portName == null) {
 				
 			} else {
-				DebugOnScreen.Add ("COM 错误", portName + " 端口打开失败，请检查端口");
+				//DebugOnScreen.Add ("COM 错误", portName + " 端口打开失败，请检查端口");
 			}
 		}
 
@@ -83,9 +83,9 @@ public class MySerialPort : MonoBehaviour {
 			}
 		}
 	}
-//	void OnApplicationQuit(){
-//		spstart.Close ();
-//	}
+	void OnApplicationQuit(){
+		spstart.Close ();
+	}
 	private void ReceiveData()
 	{
 		try
@@ -162,7 +162,7 @@ public class MySerialPort : MonoBehaviour {
 		try{
 			sr = File.OpenText(Path+"//"+name);
 		}catch(Exception e){
-			DebugOnScreen.Add ("config", Application.persistentDataPath + "下没有配置 config.txt 文件");
+			//DebugOnScreen.Add ("config", Application.persistentDataPath + "下没有配置 config.txt 文件");
 			return arrlist;
 		}
 		string line;
