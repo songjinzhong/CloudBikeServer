@@ -218,3 +218,27 @@ public class BikeInput : g_Input
         }
     }
 }
+
+public class PeopleInput : g_Input
+{
+	private float heartRate;
+	private float oxygen;
+	public float HeartRate
+	{
+		get {
+			return heartRate;
+		}
+		set {
+			heartRate = value;
+		}
+	}
+	public float Oxygen
+	{
+		get {
+			return oxygen;
+		}
+		set {
+			oxygen = value;
+		}
+	}
+}

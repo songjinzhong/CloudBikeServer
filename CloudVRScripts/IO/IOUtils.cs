@@ -74,40 +74,16 @@ class IOUtils
 
 	private static BikeInput readSpeed(byte[] commands)
     {   
-		//Debug.Log("speed turn");
-		//Debug.Log (commands [2]);
 		BikeInput input = new BikeInput();
 
-        //byte[] temp = new byte[4];
-
-        //Array.Copy(commands, 1, temp, 0, 4);
-        //float s = NetworkToHostOrderFloat(temp);//加减速
 		float s = commands[1] - 48;
 		float s2 = commands [2] - 48;
 
-		//byte[] bs = new byte[1];
-		//Array.Copy (commands, 1, bs, 0, 1);
-		//string str = System.Text.Encoding.ASCII.GetString (bs);
-		//Debug.Log (str);
-		//float num = float.Parse (str);
-		//Debug.Log(commands[1]);
-        //加减速
-//        if(s==1)
-//        {
-//			//Debug.Log ("1");
-//			input.Speed = BikeInput.SpeedTypes.Up;
-//		}else if(s==-1 || s == 0){
-//			//Debug.Log ("0");
-//			input.Speed = BikeInput.SpeedTypes.Down;
-//        }else{
-//			input.Speed = BikeInput.SpeedTypes.NoChange;
-//        }
 		input.Speed = 9 - s;
 		input.Speed2 = 9 - s2;
 
 		float x = commands[3] - 48;
 		float a = 'a';
-		//Debug.Log (x);
 		if (x == a - 48) {
 			x = -1f;
 		}

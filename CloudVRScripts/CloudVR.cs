@@ -15,8 +15,13 @@ public class CloudVR : MonoBehaviour
 
     private IServer server;
 	private IServer server2;
+	private IServer server3;
     private List<Player> players = new List<Player>();
 	private List<BikeConn> bikeConns = new List<BikeConn>();
+	private List<PeopleConn> peopleConns = new List<PeopleConn>();
+
+	public GameObject gameServer;
+	private SpeedOnScreen sos;
 
 	private int id;
 
@@ -27,15 +32,19 @@ public class CloudVR : MonoBehaviour
 		if (useTCP) {
 			server = new ServerTCP ();
 			server2 = new ServerBikeTCP ();
+			server3 = new ServerPeopleTcp ();
 		} else {
 			server = new ServerUDP ();
 			server2 = new ServerBikeTCP ();
+			server3 = new ServerPeopleTcp ();
 		}
 
         server.ClientConnected += OnClientConnected;
         server2.ClientConnected += OnBikeConnected;
+		server3.ClientConnected += onPeopleConnected;
 		id = 0;
 		DebugOnScreen.Add ("Bike Connected",bikeConns.Count);
+		sos = gameServer.GetComponent<SpeedOnScreen> ();
     }
 
     void Update ()
@@ -56,6 +65,7 @@ public class CloudVR : MonoBehaviour
     {
         server.Disconnect();
 		server2.Disconnect ();
+		server3.Disconnect ();
 
         players.ForEach(player => player.Finish());
 		bikeConns.ForEach (bikeconn => bikeconn.Finish ());
@@ -86,6 +96,17 @@ public class CloudVR : MonoBehaviour
 			DebugOnScreen.Add ("Bike Connected",bikeConns.Count);
 		}catch{
 			Debug.Log ("mobile connect first!");
+			DebugOnScreen.Add ("mobile connect first!",bikeConns.Count);
+		}
+	}
+
+	void onPeopleConnected(object sender, OnClientConnectedEventArgs args)
+	{
+		try{
+			peopleConns.Add(new PeopleConn(args.ClientConnection, players[players.Count - 1].P_Bike, sos));
+			DebugOnScreen.Add ("Heart-Oxygen Connected",peopleConns.Count);
+		}catch{
+			DebugOnScreen.Add ("mobile connect first!",peopleConns.Count);
 		}
 	}
 }

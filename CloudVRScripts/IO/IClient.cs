@@ -10,5 +10,6 @@ public interface IClient
 	void sendSpeed (byte[] data);
     g_Input readInput();
 	g_Input readInput3();
+	g_Input readPeopleInput();
     void disconnect();
 }

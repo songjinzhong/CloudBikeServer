@@ -29,13 +29,13 @@ class RemoteOutputManager
     {
         sendFrame(vrCamera.GetImage());
 
-		if (nowTime < ClearTime) {
-			nowTime += Time.deltaTime * 1000;
-		} else {
-			nowTime = 0;
-			byte[] speedData = getSpeed (speed);
-			sendSpeed (speedData);
-		}
+//		if (nowTime < ClearTime) {
+//			nowTime += Time.deltaTime * 1000;
+//		} else {
+//			nowTime = 0;
+//			byte[] speedData = getSpeed (speed);
+//			sendSpeed (speedData);
+//		}
     }
 
     private void sendFrame(byte[] bytes)

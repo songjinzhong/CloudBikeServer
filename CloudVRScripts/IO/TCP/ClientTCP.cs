@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// This class that represents a TCP connection with the client.
@@ -126,29 +127,55 @@ public class ClientTCP : IClient
 			}
 			byte[] input = reader.ReadBytes(4);
 
-//			byte[] rr = new byte[1];
-//			rr = reader.ReadBytes(1);
-//			while(rr[0] != 48){
-//				rr = reader.ReadBytes(1);
-//			}
-//			byte[] i_r = reader.ReadBytes(3);
-//			byte[] input = new byte[4];
-//			input[0] = rr[0];
-//			input[1] = rr[1];
-//			input[2] = rr[2];
-//			input[3] = rr[3];
-//			Debug.Log(input[0] - 48);
-//			Debug.Log(input[1] - 48);
-//			Debug.Log(input[2] - 48);
-//			Debug.Log(input[3] - 48);
 			bi = (BikeInput)(IOUtils.handleInput(input));
 			return bi;
 		}
 		catch (Exception)
 		{
 			disconnect();
-//			Debug.Log("bike conncet error!");
-//			return bi;
+			throw new IOException("Client disconnected");
+		}
+	}
+
+	public g_Input readPeopleInput()
+	{
+		try
+		{
+			PeopleInput pi = new PeopleInput();
+			byte start = reader.ReadByte();
+			while(start != 47){
+				start = reader.ReadByte();
+			}
+			List<byte> ls = new List<byte>();
+			start = reader.ReadByte();
+			while(start != 47){
+				ls.Add(start);
+				start = reader.ReadByte();
+			}
+			float heartRate = 0f;
+			int len = ls.Count;
+			for(int i = len - 1; i >= 0; i--){
+				heartRate += (float)((ls[i] - 48) * Math.Pow(10, len - i - 1));
+			}
+			pi.HeartRate = heartRate;
+			ls = new List<byte>();
+			start = reader.ReadByte();
+			while(start != 97){
+				ls.Add(start);
+				start = reader.ReadByte();
+			}
+			float oxygen = 0f;
+			len = ls.Count;
+			for(int i = len - 1; i >= 0; i--){
+				oxygen += (float)((ls[i] - 48) * Math.Pow(10, len - i - 1));
+			}
+			pi.Oxygen = oxygen;
+//			bi = (BikeInput)(IOUtils.handleInput(input));
+			return pi;
+		}
+		catch (Exception)
+		{
+			disconnect();
 			throw new IOException("Client disconnected");
 		}
 	}

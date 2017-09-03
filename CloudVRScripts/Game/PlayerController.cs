@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     public BikeInputManager inputM = new BikeInputManager();
 
+	public PeopleInputManager peopleInputM;
+
 	private GameObject yuanshi;
 
 	private Vector3 v_y;
@@ -37,7 +39,15 @@ public class PlayerController : MonoBehaviour
 
     private bool flag = false;
 
+	private bool peopleFlag = false;
+
+	private SpeedOnScreen sos;
+
+	// save into db
 	private float speed = 0f;
+	private float distance = 0f;
+	private float heartRate = 0f;
+	private float oxygen = 0f;
 
 	//public float y;
 
@@ -70,19 +80,27 @@ public class PlayerController : MonoBehaviour
 		//targetInitialRotation = target.transform.rotation;
 	}
 
+	public void init(GameObject target, PeopleInputManager inputManager, SpeedOnScreen sos){
+		this.peopleInputM = inputManager;
+		this.peopleFlag = true;
+		this.sos = sos;
+	}
+
     private void FixedUpdate()
     {
         if (target == null)
             return;
 			updateRotation ();
 			setImages ();
-		if(flag = true){
+		if(flag == true){
 			updateControl();
 		}
-        
-        //updatePosition();
-
-
+		if (peopleFlag == true) {
+			updatePeople ();
+		}
+		if (peopleFlag && flag) {
+			updateSpeedOnScreen ();
+		}
     }
 
 	private void setImages(){
@@ -97,6 +115,21 @@ public class PlayerController : MonoBehaviour
         mcc.c_v = inputM.v;
 		speed = inputM.v * 10 + inputM.v2;
         mcc.c_h = inputM.h;
+	}
+
+	private void updatePeople(){
+//		Debug.Log (peopleInputM.HeartRate);
+		heartRate = peopleInputM.HeartRate;
+//		Debug.Log (peopleInputM.Oxygen);
+		oxygen = peopleInputM.Oxygen;
+	}
+
+	private void updateSpeedOnScreen(){
+		sos.Speed = speed;
+		distance += speed * Time.deltaTime * 1000;
+		sos.Distance = distance;
+		sos.HeartRate = heartRate;
+		sos.Oxygen = oxygen;
 	}
 
 	// if client exit

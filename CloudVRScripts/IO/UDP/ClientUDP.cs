@@ -96,6 +96,12 @@ public class ClientUDP : IClient
         }
     }
 
+	public g_Input readPeopleInput(){
+		PeopleInput pi = new PeopleInput ();
+
+		return pi;
+	}
+
     public void disconnect()
     {
         udpClient.Close();
