@@ -29,9 +29,9 @@ public  class SpeedOnScreen : MonoBehaviour {
 	{
 		if (showFlag) {
 			GUI.Box(new Rect(0, 100, 300, 50), "速度: " + speed,style);
-			GUI.Box(new Rect(10, 100, 300, 50), "行程: " + distance,style);
-			GUI.Box(new Rect(20, 100, 300, 50), "心率: " + heartRate,style);
-			GUI.Box(new Rect(30, 100, 300, 50), "血氧: " + oxygen,style);
+			GUI.Box(new Rect(0, 130, 300, 50), "行程: " + distance,style);
+			GUI.Box(new Rect(0, 160, 300, 50), "心率: " + heartRate,style);
+			GUI.Box(new Rect(0, 190, 300, 50), "血氧: " + oxygen,style);
 		}
 	}
 	public float Speed{
@@ -46,6 +46,7 @@ public  class SpeedOnScreen : MonoBehaviour {
 	}
 	public float HeartRate{
 		set{
+			Debug.Log (value);
 			heartRate = value;
 		}
 	}
