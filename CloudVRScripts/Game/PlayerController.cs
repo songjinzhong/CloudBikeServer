@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
 	private float nowTime = 0f;
 	private float insertTime = 5000f;
+	private string startTime = null;
 
     private void Start()
     {
@@ -151,9 +152,17 @@ public class PlayerController : MonoBehaviour
 	}
 
 	private void insertIntoDB(){
-//		float[] values = new float[]{  };
-		double f = convertDateTime();
-		Debug.Log(Convert.ToString(f));
+		if (startTime == null) {
+			double f = convertDateTime();
+			startTime = Convert.ToString (f).Split (new char[1]{ '.' }) [0];
+		}
+		string[] colType = new string[5];
+		colType [0] = startTime;
+		colType [1] = Convert.ToString (speed);
+		colType [2] = Convert.ToString (distance);
+		colType [3] = Convert.ToString (heartRate);
+		colType [4] = Convert.ToString (oxygen);
+		sql.insert (colType);
 	}
 
 	// if client exit

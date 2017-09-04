@@ -32,7 +32,6 @@ public class SqlAccess
 		{
 			string connectionString = string.Format("Server = {0};port={4};Database = {1}; User ID = {2}; Password = {3};",host,database,id,pwd,"3306");
 			dbConnection = new MySqlConnection(connectionString);
-
 		}catch (Exception e)
 		{
 			DebugOnScreen.Add("服务器连接失败，请重新检查是否打开MySql服务。" + e.Message.ToString(), "");  
@@ -54,15 +53,11 @@ public class SqlAccess
 		dbConnection.Close ();
 		dbConnection.Dispose ();
 	}
-	public DataSet insert(float[] cols){
+	public DataSet insert(string[] colType){
 		DataSet ds = null;
 		try{
 			SqlAccess.connect ();
 			string[] col = new string[]{"timer", "speed", "distance", "heartrate", "oxygen"};
-			string[] colType = new string[5];
-			for(var i = 0; i < colType.Length; i++){
-				colType[i] = Convert.ToString(cols[i]);
-			}
 			ds = InsertInto ("speed", col, colType);
 			SqlAccess.disconnect ();
 			return ds;
