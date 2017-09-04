@@ -13,10 +13,10 @@ public class SqlAccess
 	//如果只是在本地的话，写localhost就可以。
    // static string host = "localhost";  
 	//如果是局域网，那么写上本机的局域网IP
-	static string host = "115.159.219.205";  
+	static string host = "192.168.31.208";  
     static string id = "root";
-    static string pwd = "sjz648660";
-    static string database = "unity"; 
+    static string pwd = "111111";
+    static string database = "iot"; 
 	
 	
 	public SqlAccess()
@@ -32,15 +32,45 @@ public class SqlAccess
 		{
 			string connectionString = string.Format("Server = {0};port={4};Database = {1}; User ID = {2}; Password = {3};",host,database,id,pwd,"3306");
 			dbConnection = new MySqlConnection(connectionString);
-			dbConnection.Open(); 
+
 		}catch (Exception e)
 		{
-	        throw new Exception("服务器连接失败，请重新检查是否打开MySql服务。" + e.Message.ToString());  
-			
+			DebugOnScreen.Add("服务器连接失败，请重新检查是否打开MySql服务。" + e.Message.ToString(), "");  
 		}
 		
 	}
-	
+
+	public static void connect()
+	{
+		try{
+			dbConnection.Open(); 
+		}catch(Exception e) {
+			DebugOnScreen.Add ("连接数据库失败", "");
+		}
+	}
+
+	public static void disconnect()
+	{
+		dbConnection.Close ();
+		dbConnection.Dispose ();
+	}
+	public DataSet insert(float[] cols){
+		DataSet ds = null;
+		try{
+			SqlAccess.connect ();
+			string[] col = new string[]{"timer", "speed", "distance", "heartrate", "oxygen"};
+			string[] colType = new string[5];
+			for(var i = 0; i < colType.Length; i++){
+				colType[i] = Convert.ToString(cols[i]);
+			}
+			ds = InsertInto ("speed", col, colType);
+			SqlAccess.disconnect ();
+			return ds;
+		}catch(Exception e){
+			Close ();
+			return ds;
+		}
+	}
 	public DataSet CreateTable (string name, string[] col, string[] colType)
     {
         if (col.Length != colType.Length) 
@@ -129,9 +159,7 @@ public class SqlAccess
 		query += ") VALUES (" + "'"+ values[0]+ "'";
         for (int i = 1; i < values.Length; ++i) 
 		{
-
             query += ", " + "'"+values[i]+ "'";
-
         }
 
         query += ")";
@@ -210,7 +238,6 @@ public class SqlAccess
 			dbConnection.Dispose();
 			dbConnection = null;
 		}
-		
 	}
 	
     public static DataSet ExecuteQuery(string sqlString)  

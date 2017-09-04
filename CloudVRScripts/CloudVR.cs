@@ -106,7 +106,8 @@ public class CloudVR : MonoBehaviour
 			peopleConns.Add(new PeopleConn(args.ClientConnection, players[players.Count - 1].P_Bike, sos));
 			DebugOnScreen.Add ("Heart-Oxygen Connected",peopleConns.Count);
 		}catch{
-			DebugOnScreen.Add ("mobile connect first!",peopleConns.Count);
+			Debug.Log ("1234");
+			DebugOnScreen.Add ("mobile connect first!","~~~~~~~");
 		}
 	}
 }

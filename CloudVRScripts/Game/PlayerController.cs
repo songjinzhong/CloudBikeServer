@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 /// <summary>
 /// Class used to update the rotation and position of the player.
@@ -49,7 +50,11 @@ public class PlayerController : MonoBehaviour
 	private float heartRate = 0f;
 	private float oxygen = 0f;
 
-	//public float y;
+	// db sql
+	private SqlAccess sql = new SqlAccess();
+
+	private float nowTime = 0f;
+	private float insertTime = 5000f;
 
     private void Start()
     {
@@ -84,6 +89,7 @@ public class PlayerController : MonoBehaviour
 		this.peopleInputM = inputManager;
 		this.peopleFlag = true;
 		this.sos = sos;
+		this.sos.ShowFlag = true;
 	}
 
     private void FixedUpdate()
@@ -98,8 +104,18 @@ public class PlayerController : MonoBehaviour
 		if (peopleFlag == true) {
 			updatePeople ();
 		}
-		if (peopleFlag && flag) {
+
+		if (peopleFlag || flag) {
 			updateSpeedOnScreen ();
+		}
+//		if (peopleFlag && flag) {
+		if (true) {
+			if (nowTime < insertTime) {
+				nowTime += Time.deltaTime * 1000;
+			} else {
+				nowTime = 0f;
+				insertIntoDB ();
+			}
 		}
     }
 
@@ -126,10 +142,18 @@ public class PlayerController : MonoBehaviour
 
 	private void updateSpeedOnScreen(){
 		sos.Speed = speed;
-		distance += speed * Time.deltaTime * 1000;
+		distance += speed * Time.deltaTime;
 		sos.Distance = distance;
+//		Debug.Log (heartRate);
 		sos.HeartRate = heartRate;
+//		Debug.Log (oxygen);
 		sos.Oxygen = oxygen;
+	}
+
+	private void insertIntoDB(){
+//		float[] values = new float[]{  };
+		double f = convertDateTime();
+		Debug.Log(Convert.ToString(f));
 	}
 
 	// if client exit
@@ -181,6 +205,14 @@ public class PlayerController : MonoBehaviour
         else
             speed = 0;
     }
+
+	// 转时间戳
+	private double convertDateTime(){
+		System.DateTime s = System.TimeZone.CurrentTimeZone.ToLocalTime (new System.DateTime (1970, 1, 1));
+		System.DateTime n = System.DateTime.Now;
+		double ret = (double)(n - s).TotalSeconds * 1000;
+		return ret;
+	}
 
 	public string Speed {
 		get{
